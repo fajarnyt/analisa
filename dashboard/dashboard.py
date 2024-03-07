@@ -1,3 +1,4 @@
+# Import pustaka yang diperlukan
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -5,17 +6,17 @@ import streamlit as st
 from datetime import date, datetime, timedelta
 from babel.numbers import format_currency
 
-# Define colors
+# Menentukan palet warna
 colors = sns.color_palette("Set2", 8)
 
-# Load data
+# Memuat data dari URL
 day_df = pd.read_csv("https://raw.githubusercontent.com/fajarnyt/analisa/master/data/day.csv")
 hour_df = pd.read_csv("https://raw.githubusercontent.com/fajarnyt/analisa/master/data/hour.csv")
 
-# Merge dataframes
+# Menggabungkan dataframe day_df dan hour_df menjadi all_df
 all_df = hour_df.merge(day_df, on='dteday', how='inner', suffixes=('_hour', '_day'))
 
-# Define weather labels
+# Mendefinisikan label untuk kondisi cuaca
 weather_labels = {
     1: 'Cerah',
     2: 'Berkabut',
@@ -24,24 +25,26 @@ weather_labels = {
 }
 all_df['weather_label'] = all_df['weathersit_day'].map(weather_labels)
 
-# Create a Streamlit app
+# Membuat aplikasi Streamlit
 st.title('Bike Sharing')
 
-# Convert string dates to datetime.date objects
+# Mengonversi string tanggal ke objek datetime.date
 min_date = datetime.strptime('2004-01-01', '%Y-%m-%d').date()
 max_date = datetime.strptime('2024-12-31', '%Y-%m-%d').date()
 
+# Menggunakan sidebar di Streamlit
 with st.sidebar:
-    # Adding the company logo
+    # Menampilkan logo perusahaan
     st.image("https://github.com/fajarnyt/gambar/blob/master/sepeda.jpg?raw=true")
     
-    # Getting start_date & end_date from date_input
+    # Mendapatkan tanggal mulai dan akhir dari pengguna melalui input tanggal
     date_range = st.date_input(
         label='Rentang Waktu',
         min_value=min_date,
         max_value=max_date,
         value=[min_date, max_date]
     )      
+    
 
 ########################################################################################
 # Fungsi untuk menampilkan jumlah sewa sepeda berdasarkan kondisi cuaca
@@ -82,7 +85,7 @@ def visualize_bike_count_by_weather_workingday(df):
     fig, ax = plt.subplots(figsize=(8, 6))
     
     sewa_bulan = all_df.groupby('mnth_day')['cnt_day'].mean()
-    plt.step(range(len(sewa_bulan)), sewa_bulan.values, where='mid', color='black', linestyle='-', marker='o')
+    #plt.step(sewa_bulan.index, sewa_bulan.values, where='mid', color='black', linestyle='-', marker='o')
     plt.bar(sewa_bulan.index, sewa_bulan.values, color='#f99000', hatch='/')
 
     plt.title('Rata - Rata Jumlah Penyewaan Setiap Bulan', fontsize=16)
@@ -97,7 +100,7 @@ def visualize_correlation_heatmap_with_windspeed(df):
     fig, ax = plt.subplots(figsize=(8, 6))
 
     sewa_cerah = all_df[all_df['weather_label'] == 'Cerah'].groupby('mnth_day')['cnt_day'].mean()
-    plt.step(range(len(sewa_cerah)), sewa_cerah.values, where='mid', color='black', linestyle='-', marker='o')
+    #plt.step(sewa_cerah.index, sewa_cerah.values, where='mid', color='black', linestyle='-', marker='o')
     plt.bar(sewa_cerah.index, sewa_cerah.values, color='red',  hatch='/')
 
     plt.title('Rata - Rata Penyewaan Setiap Bulan Kondisi Cuaca Cerah', fontsize=16)
