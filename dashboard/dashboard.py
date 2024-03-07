@@ -9,8 +9,8 @@ from babel.numbers import format_currency
 colors = sns.color_palette("Set2", 8)
 
 # Load data
-day_df = pd.read_csv("https://github.com/fajarnyt/analisa/blob/master/data/day.csv")
-hour_df = pd.read_csv("https://github.com/fajarnyt/analisa/blob/master/data/hour.csv")
+day_df = pd.read_csv("https://raw.githubusercontent.com/fajarnyt/analisa/master/data/day.csvv")
+hour_df = pd.read_csv("https://raw.githubusercontent.com/fajarnyt/analisa/master/data/hour.csv")
 
 # Merge dataframes
 all_df = hour_df.merge(day_df, on='dteday', how='inner', suffixes=('_hour', '_day'))
@@ -33,7 +33,7 @@ max_date = datetime.strptime('2024-12-31', '%Y-%m-%d').date()
 
 with st.sidebar:
     # Adding the company logo
-    st.image("https://github.com/fajarnyt/gambar/blob/master/sepeda.jpg")
+    st.image("https://github.com/dicodingacademy/assets/raw/main/logo.png")
     
     # Getting start_date & end_date from date_input
     date_range = st.date_input(
