@@ -45,7 +45,7 @@ with st.sidebar:
 
 ########################################################################################
 # Fungsi untuk menampilkan jumlah sewa sepeda berdasarkan kondisi cuaca
-def visualize_bike_count_by_weather(all_df):
+def visualize_bike_count_by_weather(df):
     st.write('## Jumlah sewa sepeda berdasarkan kondisi cuaca')
     avg_weather = all_df.groupby('weather_label')['cnt_day'].mean().reset_index().sort_values("cnt_day")
     fig, ax = plt.subplots(figsize=(10, 6))
@@ -77,7 +77,7 @@ def visualize_bike_count_by_weather(all_df):
 
 #########################################################################################
 #Rata-rata Jumlah Sewa Sepeda Berdasarkan Bulan
-def visualize_bike_count_by_weather_workingday(all_df):
+def visualize_bike_count_by_weather_workingday(df):
     st.write('## Bagimana rata-rata penyewaan sepeda untuk setiap bulan dalam setahun?')
     fig, ax = plt.subplots(figsize=(8, 6))
     
@@ -92,7 +92,7 @@ def visualize_bike_count_by_weather_workingday(all_df):
     plt.yticks(fontsize=12)  # Ukuran label pada sumbu y
     st.pyplot(fig)
 
-def visualize_correlation_heatmap_with_windspeed(all_df):
+def visualize_correlation_heatmap_with_windspeed(df):
     st.write('## Bagaimana rata - rata jumlah penyewaan sepeda setiap bulan dalam setahun berdasarkan kondisi cuaca cerah')
     fig, ax = plt.subplots(figsize=(8, 6))
 
@@ -112,7 +112,7 @@ def visualize_correlation_heatmap_with_windspeed(all_df):
 
 
 # Fungsi untuk menampilkan visualisasi RFM
-def visualize_rfm(all_df):
+def visualize_rfm(df):
     st.write('## Visualisasi RFM (Recency, Frequency, Monetary)')
     rfm_df = df.groupby('dteday').agg({
         'dteday': lambda date: (df['dteday'].max() - date.max()).days,  # Recency
