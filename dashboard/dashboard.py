@@ -82,7 +82,7 @@ def visualize_bike_count_by_weather_workingday(df):
     fig, ax = plt.subplots(figsize=(8, 6))
     
     sewa_bulan = all_df.groupby('mnth_day')['cnt_day'].mean()
-    #plt.step(sewa_bulan.index, sewa_bulan.values, where='mid', color='black', linestyle='-', marker='o')
+    plt.step(range(len(sewa_bulan)), sewa_bulan.values, where='mid', color='black', linestyle='-', marker='o')
     plt.bar(sewa_bulan.index, sewa_bulan.values, color='#f99000', hatch='/')
 
     plt.title('Rata - Rata Jumlah Penyewaan Setiap Bulan', fontsize=16)
@@ -98,7 +98,7 @@ def visualize_correlation_heatmap_with_windspeed(df):
 
     sewa_cerah = all_df[all_df['weather_label'] == 'Cerah'].groupby('mnth_day')['cnt_day'].mean()
     plt.step(range(len(sewa_cerah)), sewa_cerah.values, where='mid', color='black', linestyle='-', marker='o')
-    #plt.bar(sewa_cerah.index, sewa_cerah.values, color='red',  hatch='/')
+    plt.bar(sewa_cerah.index, sewa_cerah.values, color='red',  hatch='/')
 
     plt.title('Rata - Rata Penyewaan Setiap Bulan Kondisi Cuaca Cerah', fontsize=16)
     plt.xlabel('Bulan', fontsize=14)
