@@ -98,8 +98,7 @@ def visualize_correlation_heatmap_with_windspeed(df):
 
     sewa_cerah = all_df[all_df['weather_label'] == 'Cerah'].groupby('mnth_day')['cnt_day'].mean()
     plt.step(sewa_cerah.index, sewa_cerah.values, where='mid', color='black', linestyle='-', marker='o')
-    plt.bar(sewa_cerah.index, sewa_cerah.values, color='red')
-
+    #plt.bar(sewa_cerah.index, sewa_cerah.values, color='red',  hatch='/')
 
     plt.title('Rata - Rata Penyewaan Setiap Bulan Kondisi Cuaca Cerah', fontsize=16)
     plt.xlabel('Bulan', fontsize=14)
